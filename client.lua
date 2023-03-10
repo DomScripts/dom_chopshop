@@ -63,11 +63,6 @@ local function CreateChopLocation(car)
         SetBlipDisplay(chopBlip, 8)
         SetBlipRouteColour(chopBlip, 3)
 
-    local function targetingReset()
-        Target:disableTargeting(true)
-        Target:disableTargeting(false)
-    end 
-
     function onEnter()
         print('entered zone')
         RemoveBlip(chopBlip)
@@ -82,9 +77,8 @@ local function CreateChopLocation(car)
                 onSelect = function()
                     local boneId = GetEntityBoneIndexByName(car, 'bonnet')
                     local doorIndex = 4
-                    TriggerEvent('dom_chopshop:removeDoor', car, doorIndex)
-                    targetingReset()
-                    Target:removeLocalEntity(car, 'ox:option1')
+                    local option = 'ox:option1'
+                    TriggerEvent('dom_chopshop:removeDoor', car, doorIndex, option)
                 end 
             },{
                 -- Front Driver Door
@@ -95,9 +89,8 @@ local function CreateChopLocation(car)
                 onSelect = function()
                     local boneId = GetEntityBoneIndexByName(car, 'door_dside_f')
                     local doorIndex = 0
-                    TriggerEvent('dom_chopshop:removeDoor', car, doorIndex)
-                    targetingReset()
-                    Target:removeLocalEntity(car, 'ox:option2')
+                    local option = 'ox:option2'
+                    TriggerEvent('dom_chopshop:removeDoor', car, doorIndex, option)
                 end 
             },{
                 -- Front Passenger Door
@@ -108,9 +101,8 @@ local function CreateChopLocation(car)
                 onSelect = function()
                     local boneId = GetEntityBoneIndexByName(car, 'door_pside_f')
                     local doorIndex = 1
-                    TriggerEvent('dom_chopshop:removeDoor', car, doorIndex)
-                    targetingReset()
-                    Target:removeLocalEntity(car, 'ox:option3')
+                    local option = 'ox:option3'
+                    TriggerEvent('dom_chopshop:removeDoor', car, doorIndex, option)
                 end 
             },{
                 -- Rear Driver Door
@@ -121,9 +113,8 @@ local function CreateChopLocation(car)
                 onSelect = function()
                     local boneId = GetEntityBoneIndexByName(car, 'door_dside_r')
                     local doorIndex = 2
-                    TriggerEvent('dom_chopshop:removeDoor', car, doorIndex)
-                    targetingReset()
-                    Target:removeLocalEntity(car, 'ox:option4')
+                    local option = 'ox:option4'
+                    TriggerEvent('dom_chopshop:removeDoor', car, doorIndex, option)
                 end 
             },{
                 -- Rear Passenger Door
@@ -134,9 +125,8 @@ local function CreateChopLocation(car)
                 onSelect = function()
                     local boneId = GetEntityBoneIndexByName(car, 'door_pside_r')
                     local doorIndex = 3
-                    TriggerEvent('dom_chopshop:removeDoor', car, doorIndex)
-                    targetingReset()
-                    Target:removeLocalEntity(car, 'ox:option5')
+                    local option = 'ox:option5'
+                    TriggerEvent('dom_chopshop:removeDoor', car, doorIndex, option)
                 end 
             },{
                 -- Trunk
@@ -147,9 +137,8 @@ local function CreateChopLocation(car)
                 onSelect = function()
                     local boneId = GetEntityBoneIndexByName(car, 'boot')
                     local doorIndex = 5
-                    TriggerEvent('dom_chopshop:removeDoor', car, doorIndex)
-                    targetingReset()
-                    Target:removeLocalEntity(car, 'ox:option6')
+                    local option = 'ox:option6'
+                    TriggerEvent('dom_chopshop:removeDoor', car, doorIndex, option)
                 end 
             },{
                 -- Front Left Tire
@@ -160,9 +149,8 @@ local function CreateChopLocation(car)
                 onSelect = function()
                     local boneId = GetEntityBoneIndexByName(car, 'wheel_lf')
                     local wheelIndex = 0
-                    TriggerEvent('dom_chopshop:removeWheel', car, wheelIndex)
-                    targetingReset()
-                    Target:removeLocalEntity(car, 'ox:option7')
+                    local option = 'ox:option7'
+                    TriggerEvent('dom_chopshop:removeWheel', car, wheelIndex, option)
                 end 
             },{
                 -- Front Right Tire
@@ -173,9 +161,8 @@ local function CreateChopLocation(car)
                 onSelect = function()
                     local boneId = GetEntityBoneIndexByName(car, 'wheel_rf')
                     local wheelIndex = 1
-                    TriggerEvent('dom_chopshop:removeWheel', car, wheelIndex)
-                    targetingReset()
-                    Target:removeLocalEntity(car, 'ox:option8')
+                    local option = 'ox:option8'
+                    TriggerEvent('dom_chopshop:removeWheel', car, wheelIndex, option)
                 end 
             },{
                 -- Back Left Tire
@@ -186,9 +173,8 @@ local function CreateChopLocation(car)
                 onSelect = function()
                     local boneId = GetEntityBoneIndexByName(car, 'wheel_lr')
                     local wheelIndex = 4
-                    TriggerEvent('dom_chopshop:removeWheel', car, wheelIndex)
-                    targetingReset()
-                    Target:removeLocalEntity(car, 'ox:option9')
+                    local option = 'ox:option9'
+                    TriggerEvent('dom_chopshop:removeWheel', car, wheelIndex, option)
                 end 
             },{
                 -- Back Right Tire
@@ -199,10 +185,21 @@ local function CreateChopLocation(car)
                 onSelect = function()
                     local boneId = GetEntityBoneIndexByName(car, 'wheel_rr')
                     local wheelIndex = 5
-                    TriggerEvent('dom_chopshop:removeWheel', car, wheelIndex)
-                    targetingReset()
-                    Target:removeLocalEntity(car, 'ox:option10')
+                    local option = 'ox:option10'
+                    TriggerEvent('dom_chopshop:removeWheel', car, wheelIndex, option)
                 end 
+            },{
+                -- Body
+                name = 'ox:option11',
+                icon = 'fa-solid fa-car',
+                label = 'Chop Body',
+                distance = 3,
+                bones = {'chassis_dummy'},
+                onSelect = function()
+                    local boneId = GetEntityBoneIndexByName(car, 'chassis_dummy')
+                    local option = 'ox:option11'
+                    TriggerEvent('dom_chopshop:chassisRemove', car)
+                end
             }
         }
 
@@ -230,18 +227,131 @@ local function CreateChopLocation(car)
 end 
 
 --! Remove car parts + animations
-RegisterNetEvent('dom_chopshop:removeDoor', function(car, doorIndex)
-    SetVehicleDoorCanBreak(car, doorIndex, true)
-    SetVehicleDoorBroken(car, doorIndex, true)
+RegisterNetEvent('dom_chopshop:removeDoor', function(car, doorIndex, option)
+    local success = lib.skillCheck({'easy'}, {'1', '2', '3', '4'})
+    if success then 
+        SetVehicleDoorOpen(car, doorIndex, false, false)
+        Target:disableTargeting(true)
+        local cfg = Config.Chop[1]
+        if lib.progressCircle({
+            duration = cfg.Duration,
+            label = cfg.Label,
+            position = cfg.Position,
+            canCancel = cfg.canCancel,
+            disable = cfg.Disable,
+            anim = {
+                dict = 'amb@world_human_welding@male@base',
+                clip = 'base'
+            },
+            prop = {
+                model = `prop_weld_torch`,
+                bone = 28422,
+                pos = vec3(-0.01, 0.03, 0.02),
+                rot = vec3(0.0, 0.0, -1.5)
+            },
+        }) 
+        then
+            TriggerServerEvent('dom_chopshop:chopDoorReward', car, doorIndex, option)
+        else 
+            Target:disableTargeting(false)
+        end
+    else 
+        print("failed")
+    end 
 end)
 
-RegisterNetEvent('dom_chopshop:removeWheel', function(car, wheelIndex)
+RegisterNetEvent('dom_chopshop:doorFinalRemove', function(car, doorIndex, option)
+    Target:disableTargeting(false)
+    Target:removeLocalEntity(car, option)
+    SetVehicleDoorCanBreak(car, doorIndex, true)
+    SetVehicleDoorBroken(car, doorIndex, true)
+    print(doorIndex)
+end)
+
+RegisterNetEvent('dom_chopshop:removeWheel', function(car, wheelIndex, option)
+    local success = lib.skillCheck({'easy'}, {'1', '2', '3', '4'})
+    if success then 
+        Target:disableTargeting(true)
+        local cfg = Config.Chop[1]
+        if lib.progressCircle({
+            duration = cfg.Duration,
+            label = cfg.Label,
+            position = cfg.Position,
+            canCancel = cfg.canCancel,
+            disable = cfg.Disable,
+            anim = {
+                dict = 'anim@amb@clubhouse@tutorial@bkr_tut_ig3@',
+                clip = 'machinic_loop_mechandplayer',
+                flag = 10
+            },
+            prop = {
+                model = `prop_weld_torch`,
+                bone = 28422,
+                pos = vec3(-0.01, 0.03, 0.02),
+                rot = vec3(0.0, 0.0, -1.5)
+            },
+        }) then
+            TriggerServerEvent('dom_chopshop:chopWheelReward', car, wheelIndex, option)
+        else 
+            Target:disableTargeting(false)
+        end
+    else 
+        print("failed")
+    end 
+end)
+
+RegisterNetEvent('dom_chopshop:wheelFinalRemove', function(car, wheelIndex, option)
+    Target:disableTargeting(false)
+    Target:removeLocalEntity(car, option)
     SetVehicleWheelsCanBreak(car, true)
     SetVehicleTyreBurst(car, wheelIndex, true, 1000.0)
 end)
 
+RegisterNetEvent('dom_chopshop:chassisRemove', function(car, option)
+    local success = lib.skillCheck({'easy'}, {'1', '2', '3', '4'})
+    if success then 
+        Target:disableTargeting(true)
+        local cfg = Config.Chop[1]
+        if lib.progressCircle({
+            duration = cfg.Duration,
+            label = cfg.Label,
+            position = cfg.Position,
+            canCancel = cfg.canCancel,
+            disable = cfg.Disable,
+            anim = {
+                dict = 'amb@world_human_welding@male@base',
+                clip = 'base'
+            },
+            prop = {
+                model = `prop_weld_torch`,
+                bone = 28422,
+                pos = vec3(-0.01, 0.03, 0.02),
+                rot = vec3(0.0, 0.0, -1.5)
+            },
+        }) 
+        then
+            TriggerServerEvent('dom_chopshop:chopChassisReward', car)
+        else 
+            Target:disableTargeting(false)
+        end
+    else 
+        print("failed")
+    end 
+end)
+
+RegisterNetEvent('dom_chopshop:chassisFinalRemove', function(car)
+    Target:disableTargeting(false)
+    DeleteEntity(car)
+    lib.notify(Config.Notifications[1].CompletedJob)
+    inJob = false
+end)
+
+RegisterNetEvent('dom_chopshop:InvFullTargetReset', function()
+    Target:disableTargeting(false)
+end)
+
 --! Boss Target Options And Job Start
-local inJob = false
+inJob = false
 local gotZone = false
 local options = {
     {

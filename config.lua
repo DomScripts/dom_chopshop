@@ -69,6 +69,23 @@ Config.Exchange = {
     }
 }
 
+Config.Chop = {
+    {
+        Duration = 5000,
+        Label = 'Chopping Part',
+        Position = 'bottom',
+        canCancel = true,
+        Disable = {
+            car = true,
+            move = false,
+            combat = true,
+            mouse = false
+        },
+        RewardMin = 10,
+        RewardMax = 20,
+    }
+}
+
 Config.Notifications = {
     {
         ExchangeNoCarParts = {
@@ -90,6 +107,18 @@ Config.Notifications = {
             type = 'error',
             position = 'top-right'
         },
+        NotEnoughSpace = {
+            title = 'Chopshop',
+            description = 'You don\'t have enough space.',
+            type = 'errpr',
+            position = 'top-right'
+        },
+        CompletedJob = {
+            title = 'Chopshop',
+            description = 'You completed the job.',
+            type = 'success',
+            position = 'top-right'
+        }
     }
 }
 
