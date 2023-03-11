@@ -64,7 +64,6 @@ local function CreateChopLocation(car)
         SetBlipRouteColour(chopBlip, 3)
 
     function onEnter()
-        print('entered zone')
         RemoveBlip(chopBlip)
 
         local options = {
@@ -209,7 +208,7 @@ local function CreateChopLocation(car)
     end
 
     function onExit()
-        print('exited zone')
+        return 
     end
 
     local chopBox = lib.zones.box({
@@ -221,14 +220,13 @@ local function CreateChopLocation(car)
     }) 
 
     RegisterNetEvent('dom_chopshop:removeZone', function(boneId)
-        print('removed zone')
         chopBox:remove()
     end)
 end 
 
 --! Remove car parts + animations
 RegisterNetEvent('dom_chopshop:removeDoor', function(car, doorIndex, option)
-    local success = lib.skillCheck({'easy'}, {'1', '2', '3', '4'})
+    local success = lib.skillCheck(Config.Chop[1].SkillCheckDifficulty, Config.Chop[1].SkillCheckKeys)
     if success then 
         SetVehicleDoorOpen(car, doorIndex, false, false)
         Target:disableTargeting(true)
@@ -265,11 +263,10 @@ RegisterNetEvent('dom_chopshop:doorFinalRemove', function(car, doorIndex, option
     Target:removeLocalEntity(car, option)
     SetVehicleDoorCanBreak(car, doorIndex, true)
     SetVehicleDoorBroken(car, doorIndex, true)
-    print(doorIndex)
 end)
 
 RegisterNetEvent('dom_chopshop:removeWheel', function(car, wheelIndex, option)
-    local success = lib.skillCheck({'easy'}, {'1', '2', '3', '4'})
+    local success = lib.skillCheck(Config.Chop[1].SkillCheckDifficulty, Config.Chop[1].SkillCheckKeys)
     if success then 
         Target:disableTargeting(true)
         local cfg = Config.Chop[1]
@@ -284,12 +281,7 @@ RegisterNetEvent('dom_chopshop:removeWheel', function(car, wheelIndex, option)
                 clip = 'machinic_loop_mechandplayer',
                 flag = 10
             },
-            prop = {
-                model = `prop_weld_torch`,
-                bone = 28422,
-                pos = vec3(-0.01, 0.03, 0.02),
-                rot = vec3(0.0, 0.0, -1.5)
-            },
+            prop = {},
         }) then
             TriggerServerEvent('dom_chopshop:chopWheelReward', car, wheelIndex, option)
         else 
@@ -308,7 +300,7 @@ RegisterNetEvent('dom_chopshop:wheelFinalRemove', function(car, wheelIndex, opti
 end)
 
 RegisterNetEvent('dom_chopshop:chassisRemove', function(car, option)
-    local success = lib.skillCheck({'easy'}, {'1', '2', '3', '4'})
+    local success = lib.skillCheck(Config.Chop[1].SkillCheckDifficulty, Config.Chop[1].SkillCheckKeys)
     if success then 
         Target:disableTargeting(true)
         local cfg = Config.Chop[1]
@@ -379,7 +371,6 @@ local options = {
                     
                     if not gotZone then 
                         if value == car then
-                            print('In Veh')
                             RemoveBlip(carBlip)
                             CreateChopLocation(car)
                             gotZone = true
@@ -426,7 +417,7 @@ RegisterNetEvent("dom_chopshop:ExchangeCircle", function(input)
     then 
         TriggerServerEvent("dom_chopshop:ExchangeReward", input)
     else 
-        print('Canceled Exchange Progress Circle') 
+        return
     end
 end)
 

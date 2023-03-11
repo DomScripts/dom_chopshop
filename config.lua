@@ -20,15 +20,63 @@ Config.Cars = {
             'Oracle',
             'Sentinel',
             'Windsor2',
-            'Zion'
+            'Zion',
+            -- Compacts
+            'asbo',
+            'blista',
+            'brioso',
+            'dilettante',
+            'issi2',
+            'panto',
+            'prairie',
+            'rhapsody',
+            -- Muscle
+            'blade',
+            'buccaneer',
+            'chino',
+            'coquette3',
+            'deviant',
+            'dominator',
+            'dukes',
+            'faction2',
+            'ellie',
+            'gauntlet',
+            'hotknife',
+            'hustler',
+            'impaler',
+            -- SUV
+            'baller',
+            'bjxl',
+            'cavalcade',
+            'dubsta',
+            'fq2',
+            'granger',
+            'gresley',
+            'habanero',
+            'huntley',
+            'patriot',
+            'rocoto',
+            -- Sedans
+            'asea',
+            'asterope',
+            'cog55',
+            'emperor',
+            'fugitive',
+            'glendale',
+            'ingot',
+            'intruder',
+            'premier',
+            'primo',
+            'regina',
+            'stanier',
+            'stratum'
         },
         Location = {
-            vec4(-213.228, -1357.831, 31.26, 128.18),
-            --[[vec4(353.814, -1697.645, 37.375, 139.865),
+            vec4(353.814, -1697.645, 37.375, 139.865),
             vec4(9.312, -1066.728, 37.74, 249.083),
             vec4(-467.61, -613.472, 30.762, 180.876),
             vec4(-1324.804, -236.358, 42.276, 123.864),
-            vec4(-1534.122, -408.859, 41.578, 48.407)]]--
+            vec4(-1534.122, -408.859, 41.578, 48.407)
         }
     }
 }
@@ -36,11 +84,10 @@ Config.Cars = {
 Config.ChopLocations = {
     {
         Location = {
-            vec3(-222.862, -1363.286, 31.258)
-            -- vec3(1565.197, -2158.905, 77.524),
-            -- vec3(-84.579, -2224.341, 7.811),
-            -- vec3(-468.702, -1674.937, 19.063),
-            -- vec3(1135.053, -793.85, 57.592)
+            vec3(1565.197, -2158.905, 77.524),
+            vec3(-84.579, -2224.341, 7.811),
+            vec3(-468.702, -1674.937, 19.063),
+            vec3(1135.053, -793.85, 57.592)
         }
     }
 }
@@ -77,12 +124,14 @@ Config.Chop = {
         canCancel = true,
         Disable = {
             car = true,
-            move = false,
+            move = true,
             combat = true,
             mouse = false
         },
         RewardMin = 10,
         RewardMax = 20,
+        SkillCheckDifficulty = {'easy', 'easy', 'easy', 'easy'},
+        SkillCheckKeys = {'1', '2', '3', '4'}
     }
 }
 
@@ -121,10 +170,3 @@ Config.Notifications = {
         }
     }
 }
-
---! State bag change handlers run when the state bag changes
---! Global state bag kind of just "exist"
-
---? Spawn the vehicle
---? veh = NettoVeh(netId)
---? Entity(veh).xxxxxx
