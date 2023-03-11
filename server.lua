@@ -18,9 +18,6 @@ local function EnoughSpace(reward)
         return false 
     end
 end
-RegisterNetEvent('test', function()
-    print("Got to Test")
-end)
 
 RegisterNetEvent('dom_chopshop:chopDoorReward', function(car, doorIndex, option)
     local cfg = Config.Chop[1]
