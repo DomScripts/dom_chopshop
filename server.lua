@@ -64,6 +64,10 @@ RegisterNetEvent("dom_chopshop:Exchange", function(input)
 end)
 
 RegisterNetEvent("dom_chopshop:ExchangeReward", function(input)
-    Inventory:RemoveItem(source, 'carparts', input[2])
-    Inventory:AddItem(source, input[1], input[2])
+    if Inventory:CanCarryItem(source, input[1], input[2]) then
+        Inventory:RemoveItem(source, 'carparts', input[2])
+        Inventory:AddItem(source, input[1], input[2])
+    else
+        lib.notify(source, Config.Notifications[1].NotEnoughSpace)
+    end
 end)
