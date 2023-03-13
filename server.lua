@@ -59,7 +59,7 @@ RegisterNetEvent("dom_chopshop:Exchange", function(input)
     if CarPartCheck(input) == true then 
         TriggerClientEvent("dom_chopshop:ExchangeCircle", source, input)
     else 
-        lib.notify(source, Config.Notification[1].ExchangeNoCarParts)
+        lib.notify(source, Config.Notifications[1].ExchangeNoCarParts)
     end 
 end)
 
