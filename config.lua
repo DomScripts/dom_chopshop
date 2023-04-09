@@ -139,7 +139,7 @@ Config.Notifications = {
     {
         ExchangeNoCarParts = {
             title = 'Chopshop',
-            description = 'You don\'t have enought car parts.',
+            description = 'You don\'t have enough car parts.',
             type = 'error',
             position = 'top-right'
         },
